@@ -14,20 +14,23 @@ public class HtmlTextConverter
     }
 
     public String convertToHtml() throws IOException{
-    
 	    BufferedReader reader = new BufferedReader(new FileReader(fullFilenameWithPath));
-	    
 	    String line = reader.readLine();
-	    String html = "";
-	    while (line != null)
-	    {
-	    	html += StringEscapeUtils.escapeHtml(line);
-	        html += "<br />";
-	        line = reader.readLine();
-	    }
-	    return html;
-
+		return parseTextToHTML(reader, line);
     }
+
+	private String parseTextToHTML(BufferedReader reader, String line) throws IOException {
+		StringBuilder html = new StringBuilder();
+		while (line != null) {
+			html.append(getParsedLine(line));
+			line = reader.readLine();
+		}
+		return html.toString();
+	}
+
+	private String getParsedLine(String line) {
+		return StringEscapeUtils.escapeHtml(line) + "<br />";
+	}
 
 	public String getFilename() {
 		return this.fullFilenameWithPath;

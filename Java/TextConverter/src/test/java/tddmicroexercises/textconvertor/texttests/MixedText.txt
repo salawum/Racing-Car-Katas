@@ -1,0 +1,2 @@
+This is text has more than one line of text.
+And it has &, < and '
